@@ -2051,7 +2051,7 @@ function App() {
           <div className="container hero-container">
             <div className="hero-left">
               <p className="hero-badge">⚡ Powered by Nomba Virtual Accounts</p>
-              <h1>Rent collection,<br /><span className="blue-text">fully automated.</span></h1>
+              <h1>Rent As A<br /><span className="blue-text">Service.</span></h1>
               <p>RaaS gives every tenant a dedicated virtual account. Payments post instantly, receipts send automatically, and you never chase rent again.</p>
               <div className="cta-group">
                 <button className="btn-primary" onClick={() => setCurrentPage('signup')}>Start for free</button>
@@ -2061,38 +2061,8 @@ function App() {
             </div>
 
             <div className="hero-right">
-              <div className="dashboard-preview">
-                <div className="preview-header">
-                  <span>July 2024 Overview</span>
-                  <span className="green-text">+12.4%</span>
-                </div>
-                <div className="dashboard-stats">
-                  <div className="stat-row">
-                    <div><span>Revenue</span><strong>₦8.02M</strong></div>
-                    <div><span>Collected</span><strong>96%</strong></div>
-                  </div>
-                  <div className="stat-row">
-                    <div><span>Vacant Units</span><strong>7</strong></div>
-                    <div><span>Overdue</span><strong>₦540K</strong></div>
-                  </div>
-                </div>
-                <div className="dashboard-list">
-                  <div className="list-item">
-                    <span className="name">Emeka Okafor</span>
-                    <span className="amount">₦200,000</span>
-                    <span className="status paid">Paid</span>
-                  </div>
-                  <div className="list-item">
-                    <span className="name">Babajide Sanwo</span>
-                    <span className="amount">₦400,000</span>
-                    <span className="status paid">Paid</span>
-                  </div>
-                  <div className="list-item">
-                    <span className="name">TechHub Ltd</span>
-                    <span className="amount">₦180,000</span>
-                    <span className="status overdue">Overdue</span>
-                  </div>
-                </div>
+              <div className="hero-house-image-container">
+                <img src="/hero-house.png" alt="Modern luxury house rendering" className="hero-house-image" />
               </div>
             </div>
           </div>
