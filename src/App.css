@@ -1071,8 +1071,13 @@ main {
   padding: 24px 0;
   flex-shrink: 0;
   transition: width 0.3s ease;
-  overflow-y: auto;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
 }
 
 .dashboard-sidebar.closed {
@@ -1116,6 +1121,7 @@ main {
   flex-direction: column;
   gap: 4px;
   padding: 0 12px 32px;
+  flex: 1;
 }
 
 .nav-item {
@@ -1165,9 +1171,9 @@ main {
 }
 
 .sidebar-footer {
-  padding: 32px 12px 0;
+  padding: 20px 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 32px;
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -1184,6 +1190,9 @@ main {
   font-size: 14px;
   transition: all 0.3s ease;
   text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .collapse-btn:hover,
@@ -3321,5 +3330,73 @@ main {
   .settings-content-panel {
     padding-top: 16px;
   }
+}
+
+/* Collapsed state styles */
+.dashboard-sidebar.closed .sidebar-header {
+  padding: 0 0 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-sidebar.closed .sidebar-logo {
+  justify-content: center;
+}
+
+.dashboard-sidebar.closed .sidebar-nav {
+  padding: 0 12px;
+}
+
+.dashboard-sidebar.closed .nav-item {
+  justify-content: center;
+  padding: 12px;
+}
+
+.dashboard-sidebar.closed .sidebar-footer {
+  padding: 20px 12px;
+  align-items: center;
+}
+
+.dashboard-sidebar.closed .collapse-btn,
+.dashboard-sidebar.closed .signout-btn {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+/* Custom border box styling for collapse button when closed, as shown in screenshot */
+.dashboard-sidebar.closed .collapse-btn {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: white;
+}
+
+/* Collapsed badge styling */
+.nav-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.collapsed-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #EF4444;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  box-shadow: 0 0 0 2px #0a1f45;
 }
 
