@@ -2057,7 +2057,6 @@ function App() {
                 <button className="btn-primary" onClick={() => setCurrentPage('signup')}>Start for free</button>
                 <button className="btn-secondary" onClick={() => { setCurrentPage('login'); setEmail('demo@raas.ng'); setPassword('demo1234'); }}>View demo dashboard</button>
               </div>
-              <p className="note">No credit card required · 14-day free trial</p>
             </div>
 
             <div className="hero-right">
