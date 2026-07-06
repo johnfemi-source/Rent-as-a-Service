@@ -99,6 +99,19 @@ function App() {
   const [profileAddress, setProfileAddress] = useState('Lagos, Nigeria')
   const [showSaveToast, setShowSaveToast] = useState(false)
 
+  // Caretaker Tasks State
+  const [tasks, setTasks] = useState([
+    { id: 1, title: 'Fix leaking pipe', priority: 'High', unit: 'Flat 2B', property: 'Lekki Heights', date: '2024-07-01', status: 'Open' },
+    { id: 2, title: 'Replace broken window', priority: 'Medium', unit: 'Suite 102', property: 'Victoria Court', date: '2024-06-28', status: 'In Progress' },
+    { id: 3, title: 'Paint common area walls', priority: 'Low', unit: 'Common', property: 'Obada Plaza', date: '2024-06-25', status: 'Open' },
+    { id: 4, title: 'Generator servicing', priority: 'High', unit: 'All units', property: 'Lekki Heights', date: '2024-06-20', status: 'Completed' }
+  ]);
+  const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [newTaskPriority, setNewTaskPriority] = useState('High');
+  const [newTaskUnit, setNewTaskUnit] = useState('Flat 1B');
+  const [newTaskProperty, setNewTaskProperty] = useState('Lekki Heights');
+
   // Copy feedback state
   const [copiedId, setCopiedId] = useState(null)
 
@@ -1457,6 +1470,351 @@ function App() {
   }
 
   if (currentPage === 'dashboard') {
+    if (userType === 'Tenant') {
+      const displayName = (firstName && lastName) ? `${firstName} ${lastName}` : 'Emeka Okafor';
+      const displayInitials = (firstName && lastName) ? `${firstName[0]}${lastName[0]}`.toUpperCase() : 'EO';
+      
+      return (
+        <div className="tenant-portal">
+          <header className="tenant-portal-header-outer">
+            <div className="tenant-portal-header-inner">
+              <div className="tenant-portal-logo">
+                <div className="logo-icon-small">R</div>
+                <span className="logo-text">RaaS</span>
+                <span className="divider-line">|</span>
+                <span className="portal-subtitle">Tenant Portal</span>
+              </div>
+              <div className="tenant-portal-actions">
+                <div className="tenant-header-avatar">{displayInitials}</div>
+                <button className="tenant-header-signout" onClick={() => { setCurrentPage('landing'); }} title="Sign out">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                </button>
+              </div>
+            </div>
+          </header>
+          
+          <main className="tenant-portal-content">
+            <div className="tenant-welcome-card">
+              <div className="tenant-welcome-left">
+                <div className="tenant-avatar">{displayInitials}</div>
+                <div className="tenant-welcome-info">
+                  <h2>Welcome, {displayName}</h2>
+                  <p>Flat 1A · Lekki Heights Estate</p>
+                </div>
+              </div>
+              <div className="tenant-status-container">
+                <span className="tenant-status-label">Account Status</span>
+                <span className="tenant-status-badge clear">Clear</span>
+              </div>
+            </div>
+
+            <div className="tenant-va-card">
+              <div className="tenant-va-header">
+                <p>Your dedicated payment account — make all rent payments here</p>
+              </div>
+              <div className="tenant-va-number">
+                9038 4217 65
+              </div>
+              <div className="tenant-va-footer">
+                <div className="tenant-va-bank">Nomba / Wema Bank</div>
+                <div className="tenant-va-ref">Reference: <span>RAAS-T001-P001</span></div>
+              </div>
+              <div className="tenant-va-note">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Secured by Nomba. Transfer any amount and it will be applied to your rent automatically.</span>
+              </div>
+            </div>
+
+            <div className="tenant-stats-grid">
+              <div className="tenant-stat-card">
+                <span className="tenant-stat-label">Monthly Rent</span>
+                <strong className="tenant-stat-value">₦200,000</strong>
+              </div>
+              <div className="tenant-stat-card">
+                <span className="tenant-stat-label">Next Due Date</span>
+                <strong className="tenant-stat-value dark">Aug 1, 2024</strong>
+              </div>
+              <div className="tenant-stat-card">
+                <span className="tenant-stat-label">Lease Started</span>
+                <strong className="tenant-stat-value dark">2023-02-01</strong>
+              </div>
+            </div>
+
+            <div className="tenant-history-card">
+              <h3>Payment History</h3>
+              <div className="tenant-table-responsive">
+                <table className="tenant-history-table">
+                  <thead>
+                    <tr>
+                      <th>Reference</th>
+                      <th>Amount</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="ref-text">NOMBA-TXN-7821934</td>
+                      <td className="amount-text">₦200,000</td>
+                      <td>2024-07-02</td>
+                      <td><span className="status-badge-clear">Successful</span></td>
+                      <td>
+                        <a href="#" className="receipt-link" onClick={(e) => { e.preventDefault(); alert('Downloading receipt...'); }}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                          <span>Receipt</span>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="ref-text">NOMBA-TXN-7810500</td>
+                      <td className="amount-text">₦200,000</td>
+                      <td>2024-06-02</td>
+                      <td><span className="status-badge-clear">Successful</span></td>
+                      <td>
+                        <a href="#" className="receipt-link" onClick={(e) => { e.preventDefault(); alert('Downloading receipt...'); }}>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                          <span>Receipt</span>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </main>
+        </div>
+      );
+    } else if (userType === 'Caretaker') {
+      const displayName = (firstName && lastName) ? `${firstName} ${lastName}` : 'Chidi Amadi';
+      const displayInitials = (firstName && lastName) ? `${firstName[0]}${lastName[0]}`.toUpperCase() : 'CA';
+      
+      const openTasksCount = tasks.filter(t => t.status === 'Open').length;
+      const progressTasksCount = tasks.filter(t => t.status === 'In Progress').length;
+      const completedTasksCount = tasks.filter(t => t.status === 'Completed').length;
+      
+      const handleToggleStatus = (id) => {
+        setTasks(prev => prev.map(t => {
+          if (t.id === id) {
+            let nextStatus = 'Open';
+            if (t.status === 'Open') nextStatus = 'In Progress';
+            else if (t.status === 'In Progress') nextStatus = 'Completed';
+            else nextStatus = 'Open';
+            return { ...t, status: nextStatus };
+          }
+          return t;
+        }));
+      };
+
+      const handleMarkCompleted = (id) => {
+        setTasks(prev => prev.map(t => {
+          if (t.id === id) {
+            return { ...t, status: 'Completed' };
+          }
+          return t;
+        }));
+      };
+
+      const handleAddTask = (e) => {
+        e.preventDefault();
+        if (!newTaskTitle) return;
+        const newTask = {
+          id: Date.now(),
+          title: newTaskTitle,
+          priority: newTaskPriority,
+          unit: newTaskUnit,
+          property: newTaskProperty,
+          date: new Date().toISOString().split('T')[0],
+          status: 'Open'
+        };
+        setTasks(prev => [newTask, ...prev]);
+        setNewTaskTitle('');
+        setShowAddTaskModal(false);
+      };
+
+      return (
+        <div className="caretaker-portal">
+          <header className="caretaker-portal-header-outer">
+            <div className="caretaker-portal-header-inner">
+              <div className="caretaker-portal-logo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                <span className="logo-text">RaaS</span>
+                <span className="divider-line">|</span>
+                <span className="portal-subtitle">Caretaker Portal</span>
+              </div>
+              <div className="caretaker-portal-actions">
+                <div className="caretaker-header-avatar">{displayInitials}</div>
+                <button className="caretaker-header-signout" onClick={() => { setCurrentPage('landing'); }} title="Sign out">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <main className="caretaker-portal-content">
+            <div className="caretaker-title-section">
+              <h2>Caretaker Dashboard</h2>
+              <p>{displayName} - Lekki Heights Estate & Victoria Court</p>
+            </div>
+
+            <div className="caretaker-stats-grid">
+              <div className="caretaker-stat-card">
+                <strong className="caretaker-stat-value open">{openTasksCount}</strong>
+                <span className="caretaker-stat-label">Open Tasks</span>
+              </div>
+              <div className="caretaker-stat-card">
+                <strong className="caretaker-stat-value progress">{progressTasksCount}</strong>
+                <span className="caretaker-stat-label">In Progress</span>
+              </div>
+              <div className="caretaker-stat-card">
+                <strong className="caretaker-stat-value completed">{completedTasksCount}</strong>
+                <span className="caretaker-stat-label">Completed (Jul)</span>
+              </div>
+              <div className="caretaker-stat-card">
+                <strong className="caretaker-stat-value total">20</strong>
+                <span className="caretaker-stat-label">Units Under Care</span>
+              </div>
+            </div>
+
+            <div className="caretaker-section-card">
+              <div className="caretaker-section-header">
+                <h3>Maintenance Requests</h3>
+                <button className="caretaker-btn-primary" onClick={() => setShowAddTaskModal(true)}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  <span>Report Issue</span>
+                </button>
+              </div>
+
+              <div className="caretaker-tasks-list">
+                {tasks.map(task => (
+                  <div key={task.id} className="caretaker-task-item">
+                    <div className="caretaker-task-left">
+                      <div className="caretaker-task-title-row">
+                        <h4>{task.title}</h4>
+                        <span className={`priority-badge ${task.priority.toLowerCase()}`}>{task.priority}</span>
+                      </div>
+                      <p className="caretaker-task-meta">
+                        {task.unit} · {task.property} · Reported {task.date}
+                      </p>
+                    </div>
+                    <div className="caretaker-task-actions">
+                      <span className={`status-pill ${task.status.toLowerCase().replace(' ', '-')}`}>
+                        {task.status}
+                      </span>
+                      {task.status !== 'Completed' && (
+                        <>
+                          <button className="task-action-btn edit" onClick={() => handleToggleStatus(task.id)} title="Change status (Open / In Progress)">
+                            ✏️
+                          </button>
+                          <button className="task-action-btn complete" onClick={() => handleMarkCompleted(task.id)} title="Mark as Completed">
+                            ✔️
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="caretaker-section-card">
+              <h3>Overdue Rent Alerts</h3>
+              <div className="caretaker-alerts-list">
+                <div className="caretaker-alert-item">
+                  <div className="caretaker-alert-left">
+                    <h4>Ngozi Adeyemi</h4>
+                    <p>Flat 1B · Lekki Heights Estate</p>
+                  </div>
+                  <div className="caretaker-alert-center">
+                    <strong>₦200,000</strong>
+                    <span className="outstanding-text">outstanding</span>
+                  </div>
+                  <div className="caretaker-alert-right">
+                    <button className="caretaker-btn-remind" onClick={() => alert('Sending SMS & Email reminder to Ngozi Adeyemi...')}>
+                      ⚡ Remind
+                    </button>
+                  </div>
+                </div>
+
+                <div className="caretaker-alert-item">
+                  <div className="caretaker-alert-left">
+                    <h4>TechHub Ltd</h4>
+                    <p>Shop A1 · Surulere Plaza</p>
+                  </div>
+                  <div className="caretaker-alert-center">
+                    <strong>₦540,000</strong>
+                    <span className="outstanding-text">outstanding</span>
+                  </div>
+                  <div className="caretaker-alert-right">
+                    <button className="caretaker-btn-remind" onClick={() => alert('Sending SMS & Email reminder to TechHub Ltd...')}>
+                      ⚡ Remind
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+
+          {showAddTaskModal && (
+            <div className="caretaker-modal-overlay">
+              <div className="caretaker-modal">
+                <div className="caretaker-modal-header">
+                  <h3>Report New Maintenance Issue</h3>
+                  <button className="caretaker-modal-close" onClick={() => setShowAddTaskModal(false)}>×</button>
+                </div>
+                <form onSubmit={handleAddTask} className="caretaker-modal-form">
+                  <div className="form-group">
+                    <label>Issue Title</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g. Fix leaking pipe" 
+                      value={newTaskTitle} 
+                      onChange={e => setNewTaskTitle(e.target.value)}
+                      required 
+                    />
+                  </div>
+                  <div className="form-row-2">
+                    <div className="form-group">
+                      <label>Priority</label>
+                      <select value={newTaskPriority} onChange={e => setNewTaskPriority(e.target.value)}>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                      </select>
+                    </div>
+                    <div className="form-group">
+                      <label>Unit</label>
+                      <input 
+                        type="text" 
+                        placeholder="e.g. Flat 2B" 
+                        value={newTaskUnit} 
+                        onChange={e => setNewTaskUnit(e.target.value)}
+                        required 
+                      />
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>Property</label>
+                    <input 
+                      type="text" 
+                      placeholder="e.g. Lekki Heights" 
+                      value={newTaskProperty} 
+                      onChange={e => setNewTaskProperty(e.target.value)}
+                      required 
+                    />
+                  </div>
+                  <div className="caretaker-modal-actions">
+                    <button type="button" className="caretaker-btn-cancel" onClick={() => setShowAddTaskModal(false)}>Cancel</button>
+                    <button type="submit" className="caretaker-btn-submit">Submit Issue</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
     return (
       <div className="app">
         <div className="dashboard-container">
