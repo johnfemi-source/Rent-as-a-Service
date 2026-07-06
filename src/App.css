@@ -572,12 +572,9 @@ main {
 
 .features-list li {
   font-size: 14px;
-  color: inherit;
-  opacity: 0.8;
-  padding: 10px 0;
-  border-bottom: 1px solid;
-  border-color: inherit;
-  opacity: 0.15;
+  color: #000000;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .features-list li:last-child {
@@ -585,8 +582,8 @@ main {
 }
 
 .pricing-card.featured .features-list li {
-  opacity: 0.8;
-  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 .plan-btn {
